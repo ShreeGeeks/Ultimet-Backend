@@ -1,0 +1,64 @@
+server:
+  port: 9000
+  servlet:
+    context-path: api
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    discovery:
+      enabled: true
+    config:
+      enabled: false
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+              - "http://localhost:9000"
+              - "http://localhost:9001"
+              - "http://localhost:9002"
+              - "http://localhost:9003"
+              - "http://localhost:9004"
+            allowedHeaders:
+              - Content-Type
+              - Authorization
+            exposedHeaders:
+              - Content-Type
+              - Authorization
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/auth-service/(?<RID>.*), /auth-service/$\{RID}
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/user-service/(?<RID>.*), /user-service/$\{RID}
+
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    service-url:
+      defaultZone: http://localhost:9001/eureka
+
+      spring:
+        cloud:
+          config:
+            import-check:
+              enabled=false:
+
