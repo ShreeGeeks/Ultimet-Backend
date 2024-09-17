@@ -7,9 +7,9 @@ spring:
   application:
     name: user-service
   datasource:
-    url: jdbc:mysql://localhost:3306/benita
+    url: jdbc:mysql://ultimet-dev.cpm2ioqsiw9j.eu-north-1.rds.amazonaws.com:3306/ulti-met
     username: root
-    password: root
+    password: Shreegeeks120714
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 eureka:
