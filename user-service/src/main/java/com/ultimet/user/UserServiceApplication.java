@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import java.util.HashMap;
 
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @SpringBootApplication
 public class UserServiceApplication {
 
