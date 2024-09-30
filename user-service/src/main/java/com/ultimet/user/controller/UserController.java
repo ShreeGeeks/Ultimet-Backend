@@ -17,6 +17,11 @@ public class UserController extends BaseController {
 
     private final UserService userService;
 
+    @PostMapping("/test")
+    public String test1() {
+        return "Hi there, welcome to ulti-met";
+    }
+
     @PostMapping("/registerUser")
     public BaseResponse registerUser(@RequestBody UserForm userForm) {
         log.info("Executing registerUser() with : {}", userForm);
