@@ -9,7 +9,7 @@
         <relativePath />
     </parent>
 
-    <groupId>com.benita.hr</groupId>
+    <groupId>com.ultimet.hr</groupId>
     <artifactId>hr-app-microservices</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>

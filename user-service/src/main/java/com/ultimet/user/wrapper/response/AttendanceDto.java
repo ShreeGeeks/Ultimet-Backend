@@ -17,6 +17,8 @@ public class AttendanceDto {
 
     private Date checkOut;
 
+    private Double totalHours;
+
     private String latitude;
 
     private String longitude;

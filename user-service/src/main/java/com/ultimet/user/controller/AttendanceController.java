@@ -19,15 +19,23 @@ public class AttendanceController extends BaseController {
     private final AttendanceService attendanceService;
 
     @PostMapping("/checkIn")
-    public BaseResponse checkIn(@RequestBody AttendanceForm attendanceForm) {
+    public BaseResponse checkIn(@RequestBody AttendanceForm attendanceForm, HttpServletRequest request) {
         log.info("Executing checkIn() with : {}", attendanceForm);
-        return attendanceService.checkIn(attendanceForm);
+        User user = super.getUserNameByHeader(request);
+        if (user == null) {
+            return new BaseResponse().setUnauthorized();
+        }
+        return attendanceService.checkIn(attendanceForm, user);
     }
 
     @PostMapping("/checkOut")
-    public BaseResponse checkOut(@RequestBody AttendanceForm attendanceForm) {
+    public BaseResponse checkOut(@RequestBody AttendanceForm attendanceForm, HttpServletRequest request) {
         log.info("Executing checkOut() with : {}", attendanceForm);
-        return attendanceService.checkOut(attendanceForm);
+        User user = super.getUserNameByHeader(request);
+        if (user == null) {
+            return new BaseResponse().setUnauthorized();
+        }
+        return attendanceService.checkOut(attendanceForm, user);
     }
 
     @GetMapping("/getAttendanceHistory")

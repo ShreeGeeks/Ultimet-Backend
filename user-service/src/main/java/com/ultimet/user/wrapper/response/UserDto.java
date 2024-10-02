@@ -18,4 +18,6 @@ public class UserDto {
     private String email;
 
     private String token;
+
+    private RoleDto roleDto;
 }

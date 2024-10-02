@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Data
 @Entity
@@ -35,6 +36,9 @@ public class Attendance extends BaseEntity {
     @Column(name = "check_out")
     private Date checkOut;
 
+    @Column(name = "total_hours")
+    private Double totalHours;
+
     @Column(name = "latitude")
     private String latitude;
 
@@ -43,4 +47,13 @@ public class Attendance extends BaseEntity {
 
     @Column(name = "remarks")
     private String remarks;
+
+    public Double getTotalHours() {
+        if (checkIn == null || checkOut == null) {
+            return 0.0;
+        }
+        double totalMills = (double) (checkOut.getTime() - checkIn.getTime());
+        System.out.println(totalHours);
+        return totalMills / (3600 * 1000);
+    }
 }

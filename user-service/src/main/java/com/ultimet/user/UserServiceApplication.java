@@ -3,7 +3,6 @@ package com.ultimet.user;
 import com.ultimet.user.entity.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import java.util.HashMap;
 

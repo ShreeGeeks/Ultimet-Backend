@@ -19,21 +19,24 @@ public class AttendanceMapper {
         attendance.setDate(attendanceForm.getDate());
         attendance.setCheckIn(attendanceForm.getCheckIn());
         attendance.setCheckOut(attendanceForm.getCheckOut());
+        attendance.setTotalHours(attendance.getTotalHours());
         attendance.setLatitude(attendanceForm.getLatitude());
         attendance.setLongitude(attendanceForm.getLongitude());
         attendance.setRemarks(attendanceForm.getRemarks());
         return attendance;
     }
 
-    public Object toDto(Attendance attendance) {
+    public AttendanceDto toDto(Attendance attendance) {
         AttendanceDto attendanceDto = new AttendanceDto();
+        attendanceDto.setId(attendance.getId());
         attendanceDto.setUserDto(userMapper.toDto(attendance.getUser()));
         attendanceDto.setDate(attendance.getDate());
         attendanceDto.setCheckIn(attendance.getCheckIn());
         attendanceDto.setCheckOut(attendance.getCheckOut());
+        attendanceDto.setTotalHours(attendance.getTotalHours());
         attendanceDto.setLatitude(attendance.getLatitude());
         attendanceDto.setLongitude(attendance.getLongitude());
         attendanceDto.setRemarks(attendance.getRemarks());
-        return attendance;
+        return attendanceDto;
     }
 }

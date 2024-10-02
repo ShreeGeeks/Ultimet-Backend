@@ -23,15 +23,16 @@ public class AttendanceService {
     private final AttendanceMapper attendanceMapper;
     private final UserRepository userRepository;
 
-    public BaseResponse checkIn(AttendanceForm attendanceForm) {
+    public BaseResponse checkIn(AttendanceForm attendanceForm, User user) {
         BaseResponse response = new BaseResponse();
         try {
-            Optional<User> optionalUser = userRepository.findById(attendanceForm.getUserId());
-            if (optionalUser.isEmpty()) {
-                return response.set(302, "User not found");
+            Attendance attendance = attendanceRepository
+                    .findByUserIdAndDateAndCheckOutIsNull(user.getId(), attendanceForm.getDate());
+            if (attendance != null) {
+                return response.set(302, "You have already checked in for this date");
             }
-            Attendance attendance = attendanceRepository.save(attendanceMapper.toEntity(attendanceForm,
-                    optionalUser.get()));
+            attendance = attendanceRepository.save(
+                    attendanceMapper.toEntity(attendanceForm, user));
             response.set(200, "Checked in successfully", attendanceMapper.toDto(attendance));
         } catch (Exception e) {
             log.error("Exception while checkIn() : ", e);
@@ -40,7 +41,7 @@ public class AttendanceService {
         return response;
     }
 
-    public BaseResponse checkOut(AttendanceForm attendanceForm) {
+    public BaseResponse checkOut(AttendanceForm attendanceForm, User user) {
         BaseResponse response = new BaseResponse();
         try {
             if (attendanceForm.getId() == null) {
@@ -50,11 +51,14 @@ public class AttendanceService {
             if (optionalAttendance.isEmpty()) {
                 return response.set(302, "No record found");
             }
-            if (attendanceForm.getCheckOut() == null) {
-                return response.set(302, "Invalid checkOut date");
-            }
             Attendance attendance = optionalAttendance.get();
+            if (attendanceForm.getCheckOut() == null
+                    || attendanceForm.getCheckOut().before(attendance.getCheckIn())) {
+                return response.set(302, "Invalid check-out date");
+            }
+
             attendance.setCheckOut(attendanceForm.getCheckOut());
+            attendance.setTotalHours(attendance.getTotalHours());
             attendance = attendanceRepository.save(attendance);
             response.set(200, "Checked out successfully", attendanceMapper.toDto(attendance));
         } catch (Exception e) {

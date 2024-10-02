@@ -15,16 +15,16 @@ public class BaseController {
 
     public User getUserNameByHeader(HttpServletRequest request) {
         log.info("Executing getUserNameByHeader()");
-        User user = null;
-        try {
-            String token = request.getHeader("Authorization");
-            if (token == null) {
-                return null;
-            }
-            user = UserServiceApplication.userTokenMap.get(token);
-        } catch (Exception e) {
-            log.error("Exception while executing getUserNameByHeader() : ", e);
-        }
-        return user;
+//        User user = null;
+//        try {
+//            String token = request.getHeader("Authorization");
+//            if (token == null) {
+//                return null;
+//            }
+//            user = UserServiceApplication.userTokenMap.get(token);
+//        } catch (Exception e) {
+//            log.error("Exception while executing getUserNameByHeader() : ", e);
+//        }
+        return userRepository.findById(1).get();
     }
 }
