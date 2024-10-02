@@ -39,4 +39,17 @@ public class UserController extends BaseController {
         System.out.println("Hi there");
         return "SUCCESS";
     }
+
+    @GetMapping("/user/{userId}")
+    public BaseResponse findUser(@PathVariable Integer userId){
+        System.out.println("Hi there for finding user");
+        return userService.findUser(userId);
+    }
+
+    @PostMapping("/updateUser")
+    public BaseResponse updateUser(@RequestBody UserForm userForm){
+        System.out.println("Hi there for finding user");
+        return userService.updateUser(userForm);
+
+    }
 }
