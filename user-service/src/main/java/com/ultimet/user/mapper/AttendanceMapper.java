@@ -2,6 +2,7 @@ package com.ultimet.user.mapper;
 
 import com.ultimet.user.entity.Attendance;
 import com.ultimet.user.entity.User;
+import com.ultimet.user.utils.Utils;
 import com.ultimet.user.wrapper.request.AttendanceForm;
 import com.ultimet.user.wrapper.response.AttendanceDto;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class AttendanceMapper {
         attendance.setDate(attendanceForm.getDate());
         attendance.setCheckIn(attendanceForm.getCheckIn());
         attendance.setCheckOut(attendanceForm.getCheckOut());
-        attendance.setTotalHours(attendance.getTotalHours());
+        attendance.setTotalMinutes(attendance.getTotalMinutes());
         attendance.setLatitude(attendanceForm.getLatitude());
         attendance.setLongitude(attendanceForm.getLongitude());
         attendance.setRemarks(attendanceForm.getRemarks());
@@ -33,7 +34,7 @@ public class AttendanceMapper {
         attendanceDto.setDate(attendance.getDate());
         attendanceDto.setCheckIn(attendance.getCheckIn());
         attendanceDto.setCheckOut(attendance.getCheckOut());
-        attendanceDto.setTotalHours(attendance.getTotalHours());
+        attendanceDto.setTotalHours(Utils.minuteToHour(attendance.getTotalMinutes()));
         attendanceDto.setLatitude(attendance.getLatitude());
         attendanceDto.setLongitude(attendance.getLongitude());
         attendanceDto.setRemarks(attendance.getRemarks());

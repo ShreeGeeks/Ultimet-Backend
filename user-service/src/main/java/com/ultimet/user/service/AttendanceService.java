@@ -24,6 +24,7 @@ public class AttendanceService {
     private final UserRepository userRepository;
 
     public BaseResponse checkIn(AttendanceForm attendanceForm, User user) {
+        log.info("Checking in user : {}, attendance : {}", user, attendanceForm);
         BaseResponse response = new BaseResponse();
         try {
             Attendance attendance = attendanceRepository
@@ -42,6 +43,7 @@ public class AttendanceService {
     }
 
     public BaseResponse checkOut(AttendanceForm attendanceForm, User user) {
+        log.info("Checking out user : {}, attendance : {}", user, attendanceForm);
         BaseResponse response = new BaseResponse();
         try {
             if (attendanceForm.getId() == null) {
@@ -58,11 +60,11 @@ public class AttendanceService {
             }
 
             attendance.setCheckOut(attendanceForm.getCheckOut());
-            attendance.setTotalHours(attendance.getTotalHours());
+            attendance.setTotalMinutes(attendance.getTotalMinutes());
             attendance = attendanceRepository.save(attendance);
             response.set(200, "Checked out successfully", attendanceMapper.toDto(attendance));
         } catch (Exception e) {
-            log.error("Exception while checkIn() : ", e);
+            log.error("Exception while check-out() : ", e);
             response.setSomethingWentWrong();
         }
         return response;
