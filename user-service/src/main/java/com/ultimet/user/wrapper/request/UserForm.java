@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class UserForm {
 
+    private Integer id;
+
     private String firstName;
 
     private String lastName;
@@ -16,4 +18,6 @@ public class UserForm {
     private String email;
 
     private String password;
+
+    private String role;
 }
