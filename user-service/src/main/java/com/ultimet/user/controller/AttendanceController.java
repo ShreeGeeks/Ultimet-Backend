@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("attendance")
 public class AttendanceController extends BaseController {
 

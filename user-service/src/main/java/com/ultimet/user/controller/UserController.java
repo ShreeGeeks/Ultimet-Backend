@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("users")
+@CrossOrigin(origins = "*")
 public class UserController extends BaseController {
 
     private final UserService userService;
