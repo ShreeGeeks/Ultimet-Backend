@@ -4,6 +4,8 @@ server:
     context-path: /user-service/
 
 spring:
+  profiles:
+    active: dev
   application:
     name: user-service
   datasource:
