@@ -8,7 +8,7 @@
         <include resource="org/springframework/boot/logging/logback/base.xml"/>
         <appender name="all"
                   class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>/var/lib/jenkins/workspace/logs/user-service.log</file>
+            <file>${user.dir}/user-service.log</file>
             <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
                 <Pattern>
                     <!--					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n-->
@@ -18,7 +18,7 @@
 
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <!-- rollover daily -->
-                <fileNamePattern>/var/lib/jenkins/workspace/logs/user-service.%d{yyyy-MM-dd}.log.zip
+                <fileNamePattern>${user.dir}/user-service.%d{yyyy-MM-dd}.log.zip
                 </fileNamePattern>
                 <maxHistory>1200</maxHistory>
 
